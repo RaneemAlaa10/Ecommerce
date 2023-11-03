@@ -1,0 +1,59 @@
+<div class="container rounded shadow-sm" *ngIf="wishListDetails.length!=0; else NoWishList">
+    <div class="row p-3">
+        <h4 class="fw-bold">Welcome To Your wishlist</h4>
+        <div class="col-lg-12 p-3 bg-white mb-5">
+            <!-- wishlist table -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="p-2 px-3 text-uppercase">Product</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Price</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase"> </div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase"> </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="shadow" *ngFor="let product of wishListDetails">
+                            <th scope="row" class="border-0">
+                                <div class="p-2">
+                                    <img [src]="product.imageCover" width="90"
+                                        class="img-fluid rounded shadow-sm">
+                                    <div class="ml-3 d-inline-block align-middle">
+                                        <h5 class="mb-0 text-dark d-inline-block align-middle mx-2">
+                                            {{product.title.split(" ").slice(0,4).join(" ")}}</h5><span
+                                            class="text-muted font-weight-normal font-italic d-block mx-2">Category:
+                                            {{product.category.name}}</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="border-0 align-middle"><strong>{{product.price|currency:"EGP "}}</strong></td>
+                            <td class="border-0 align-middle"><button (click)="removeItemFromWishList(product._id)"
+                                    class="text-danger border border-secondary btn decrease"><i class="fa fa-trash mx-2"></i></button></td>
+                                    <td class="border-0 align-middle"><button (click)="addToCart(product._id)"
+                                        class="border border-secondary btn add-btn">Add to Cart</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!--template if wishlist is empty-->
+<ng-template #NoWishList>
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <div class="w-25"><img src="assets/images/wishList.jpg" class="w-100"></div>
+        <h4 class="d-block">Your Wish List Is Empty!</h4>
+        <button class="btn bg-main p-auto text-white my-2 btn-hover" routerLink="/home">Continue Browsing <i class="fa-solid fa-arrow-right arrow"></i></button>
+    </div>
+</ng-template>
+<!--loading component shown while waiting response from api-->
+<app-loading *ngIf="loading"></app-loading>

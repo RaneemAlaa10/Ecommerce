@@ -1,0 +1,112 @@
+<!--Start of all orders table container-->
+<section class="container rounded shadow-sm" *ngIf="allOrders.length !== 0; else noOrders">
+    <div class="row p-3">
+        <h4 class="fw-bold">Your Orders</h4>
+        <div class="col-lg-12 p-3 bg-white mb-5">
+            <!-- Orders table -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Order Date</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Total Price</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Status</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of allOrders" class="shadow">
+                            <td class="border-0 align-middle"><strong>{{ order.createdAt | date:'MMM dd Y'}}</strong>
+                            </td>
+                            <td class="border-0 align-middle">
+                                <div class="d-flex align-items-center text-success">
+                                    <strong>{{ order.totalOrderPrice}} EGP</strong>
+                                </div>
+                            </td>
+                            <td class="border-0 align-middle">
+                                <strong>{{ order.isPaid ? 'Paid' : 'Pending Payment' }},
+                                    {{ order.isDelivered ? 'Delivered' : 'Not Delivered' }}</strong>
+                            </td>
+                            <td class="border-0 align-middle">
+                                <button class="btn bg-main text-white" (click)="openModal(order)">Show Details</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+<!--end of all orders table container-->
+<!--start of modal-->
+<div class="cardContainer d-none" (click)="closeModal()">
+    <div class="card p-4" (click)="preventHide($event)">
+        <button class="closeButton text-main cursor-pointer" (click)="closeModal()">x</button>
+        <div class="title text-main fw-bold my-3">Order Details</div>
+        <div class="info mb-3">
+            <div class="row">
+                <div class="col-4">
+                    <span id="heading">Date</span><br>
+                    <span id="details">{{selectedOrder?.createdAt|date:'MMM dd Y'}}</span>
+                </div>
+                <div class="col-8 pull-right">
+                    <span id="heading">Order No.</span><br>
+                    <span id="details">{{selectedOrder?._id}}</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-4">
+                    <span id="heading">Paid By</span><br>
+                    <span id="details">{{selectedOrder?.paymentMethodType}}</span>
+                </div>
+                <div class="col-8 pull-right">
+                    <span id="heading">Number Of Items</span><br>
+                    <span id="details">{{selectedOrder?.cartItems.length}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="pricing">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Product</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of cartItems">
+                        <td>{{item.product.title.split(" ").slice(0,2).join(" ")}}</td>
+                        <td>{{item.count}}</td>
+                        <td>{{item.price}} EGP</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="total">
+            <div class="row">
+                <div class="col-9 text-main fw-bold">Total</div>
+                <div class="col-3 text-success fw-bold">{{selectedOrder?.totalOrderPrice}} EGP</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of modal-->
+<!--template if there is no orders for the user-->
+<ng-template #noOrders>
+    <div class="container d-flex flex-column align-items-center justify-content-center noOrders vh-75 p-4">
+        <i class="fa-solid fa-exclamation mb-2 text-main"></i>
+        <h4 class="d-block">Your Don't Have Any Orders!</h4>
+        <button class="btn bg-main p-auto text-white my-2 btn-hover" routerLink="/home">Go Shopping <i class="fa-solid fa-arrow-right arrow"></i></button>
+    </div>
+</ng-template>
+<!--loading overlay api request-->
+<app-loading *ngIf="loading"></app-loading>

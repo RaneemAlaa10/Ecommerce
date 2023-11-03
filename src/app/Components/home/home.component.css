@@ -1,0 +1,16 @@
+.heartIcon{
+    padding-top: 2px ;
+}
+.heartIcon:hover
+{
+    color: red;
+}
+.cartIcon:hover
+{
+    background-color: #88067d;
+    color: white !important;
+}
+.my-pagination ::ng-deep .ngx-pagination .current {
+    background: #88067d;
+    border-radius: 10px 10px ;
+}

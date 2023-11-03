@@ -1,0 +1,92 @@
+<div class="container rounded shadow-sm" *ngIf="cartData!=null;else noCart">
+    <div class="row p-3">
+        <h4 class="fw-bold">Welcome To Your Cart</h4>
+        <h6 class="mx-2">Total Items: <span class="text-main">{{cartData.numOfCartItems}}</span></h6>
+        <button class="btn bg-danger text-white w-25 btn-danger-hover" (click)="emptyCart()"><i class="fa fa-trash mx-2"></i> Empty Your
+            Cart</button>
+        <div class="col-lg-12 p-3 bg-white mb-5">
+            <!-- Shopping cart table -->
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="p-2 px-3 text-uppercase">Product</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Price</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase">Quantity</div>
+                            </th>
+                            <th scope="col" class="border-0 bg-light">
+                                <div class="py-2 text-uppercase"> </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="shadow" *ngFor="let product of cartData?.data?.products">
+                            <th scope="row" class="border-0">
+                                <div class="p-2">
+                                    <img [src]="product.product.imageCover" width="90"
+                                        class="img-fluid rounded shadow-sm">
+                                    <div class="ml-3 d-inline-block align-middle">
+                                        <h5 class="mb-0 text-dark d-inline-block align-middle mx-2">
+                                            {{product.product.title.split(" ").slice(0,4).join(" ")}}</h5><span
+                                            class="text-muted font-weight-normal font-italic d-block mx-2">Category:
+                                            {{product.product.category.name}}</span>
+                                    </div>
+                                </div>
+                            </th>
+                            <td class="border-0 align-middle"><strong>{{product.price|currency:"EGP "}}</strong></td>
+                            <td class="border-0 align-middle">
+                                <!--QUANTITY-->
+                                <div class="d-flex align-items-center">
+                                    <button (click)="updateProductQuantity(product.product._id,product.count+1)"
+                                        class="btn btn-small border border-secondary text-black increase">+</button>
+                                    <span class="mx-2">{{product.count}}</span>
+                                    <button [disabled]="product.count==1" (click)="updateProductQuantity(product.product._id,product.count-1)"
+                                        class="btn btn-small border border-secondary text-black decrease">-</button>
+                                </div>
+                            </td>
+                            <!--REMOVE PRODUCT-->
+                            <td class="border-0 align-middle"><button (click)="removeItem(product.product._id)"
+                                    class="text-danger border border-secondary btn decrease"><i
+                                        class="fa fa-trash mx-2"></i></button></td>
+                        </tr>
+                        <!--check out part-->
+                        <tr class="text-center mt-2">
+                            <td colspan="4" class="mx-auto w-50">
+                                <div class="payment mx-auto rounded my-2 w-25 p-3">
+                                    <h6 class="text-start fw-bold mb-3">Cart Total</h6>
+                                    <div class="mb-0 text-start d-flex">
+                                        <p>Total: <span class="text-success fw-bold">{{cartData.data.totalCartPrice}}
+                                                EGP</span></p>
+                                    </div>
+                                    <div class="breakline mb-2"></div>
+                                    <div class="mb-0 text-start d-flex">
+                                        <p>Shipping: <span class="text-success fw-bold">Free</span></p>
+                                    </div>
+                                    <div class="breakline mb-2"></div>
+                                    <button class="btn bg-main text-white"
+                                        [routerLink]="['/checkout',cartData.data._id]">Check Out</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--template if there is no items in cart-->
+<ng-template #noCart>
+    <div class="container d-flex flex-column align-items-center justify-content-center">
+        <img src="assets/images/empty-cart-1.png" class="img-fluid">
+        <h4 class="d-block">Your Cart Is Empty!</h4>
+        <button class="btn bg-main p-auto text-white my-2 btn-hover" routerLink="/home">Continue Shopping <i class="fa-solid fa-arrow-right arrow"></i></button>
+    </div>
+</ng-template>
+<!--loading overlay while api request-->
+<app-loading *ngIf="loading"></app-loading>

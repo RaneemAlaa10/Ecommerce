@@ -1,0 +1,99 @@
+/* Common styles for the navbar */
+.nav-hover {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+/* Styles for the border effect on hover */
+.nav-hover::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px; /* Border height */
+  background-color: black; /* Border color for normal navbar */
+  transition: width 0.3s ease; /* Transition the width property with ease */
+}
+
+/* Hover effect on the navbar */
+.nav-hover:hover::before {
+  width: 100%; /* Fully reveal the border from left to right */
+}
+
+/* Active state with border color for normal navbar */
+.active {
+  border-bottom: 1px solid black; /* Set border color to black for active state in normal navbar */
+}
+
+/* Add styles for the logo and text color when the background is white */
+.nav .navbar-brand,
+.nav .nav-link {
+  color: black !important;
+}
+
+/* Apply hover styles when not active */
+.nav .nav-link.nav-hover:not(.active):hover::before {
+  width: 100%; /* Fully reveal the border from left to right */
+}
+
+/* Remove hover effect when active */
+.nav .nav-link.nav-hover.active:hover::before {
+  width: 0; /* Set to 0 to hide the border when active */
+}
+
+/* Add a class for black background and white text */
+.nav-black {
+  background-color: rgb(29, 29, 29) !important;
+  color: white !important;
+}
+
+/* Styles for the border effect on hover for black navbar */
+.nav-black .nav-hover::before {
+  background-color: white; /* Border color for black navbar */
+}
+
+/* Hover effect on the black navbar */
+.nav-black .nav-hover:hover::before {
+  width: 100%; /* Fully reveal the border from left to right */
+}
+
+/* Active state with border color for black navbar */
+.nav-black .active {
+  border-bottom: 1px solid white; /* Set border color to white for active state in black navbar */
+}
+
+/* Add styles for the logo and text color when the background is black */
+.nav-black .navbar-brand,
+.nav-black .nav-link {
+  color: white !important;
+}
+
+/* Apply hover styles when not active for black navbar */
+.nav-black .nav-link.nav-hover:not(.active):hover::before {
+  width: 100%; /* Fully reveal the border from left to right */
+}
+
+/* Remove hover effect when active for black navbar */
+.nav-black .nav-link.nav-hover.active:hover::before {
+  width: 0; /* Set to 0 to hide the border when active */
+}
+.nav {
+  transition: all 0.5s;
+}
+.icon
+{
+  font-size: 18px;
+}
+.badge 
+{
+  left: 0;
+  top: -12px;
+  font-size: 12px;
+}
+.dropdown
+{
+  margin-right: 95px;
+}

@@ -1,0 +1,12 @@
+  .wrap-error h1 {
+    font-size: 6.875rem;
+    letter-spacing: -13px;
+    line-height: 1;
+    font-family: montserrat, sans-serif;
+  }
+  h1 span {
+    text-shadow: -8px 0 0 #88067d;
+  }
+  .text-9xl {
+    font-size: 5.5rem;
+  }

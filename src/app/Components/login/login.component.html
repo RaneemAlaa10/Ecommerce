@@ -1,0 +1,46 @@
+<section class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3 class="fw-bold">Login To Shop</h3>
+            <p class="fw-light px-3">Enter your details below</p>
+            <div class="alert alert-danger" *ngIf="errorMessage">{{errorMessage}}</div>
+            <form [formGroup]="loginForm" (ngSubmit)="handleLogin(loginForm)" class="p-3 mt-4 position-relative">
+                <!--*Loading Overlay while sending data to api-->
+                <div *ngIf="loading" class="overlay-div-transparent">
+                    <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 59">
+                        <path
+                            d="M55.42 25.14C55.64 26.48 55.75 27.85 55.75 29.25C55.75 43.27 44.46 54.61 30.5 54.61C16.54 54.61 5.25 43.27 5.25 29.25C5.25 15.23 16.54 3.89 30.5 3.89 C34.8 3.89 38.84 4.97 42.38 6.86" />
+                        <path
+                            d="M44.28 33.78C44.04 32.45 43.9 31.08 43.88 29.68C43.64 15.66 54.73 4.13 68.69 3.9C82.65 3.66 94.13 14.8 94.37 28.82C94.61 42.84 83.52 54.36 69.56 54.6C65.26 54.68 61.19 53.67 57.62 51.84" />
+                    </svg>
+                </div>
+                <!--Email Input-->
+                <label for="email" class="gray"> Email: </label>
+                <input type="email" id="email" formControlName="email" class="form-control my-2">
+                <div *ngIf="loginForm.get('email')?.errors&&loginForm.get('email')?.touched" class="alert text-black">
+                    <p *ngIf="loginForm.get('email')?.getError('required')">Email Is Required </p>
+                    <p *ngIf="loginForm.get('email')?.getError('email')">Enter Correct Email Format</p>
+                </div>
+
+                <!--Password Input-->
+                <label for="password" class="gray"> Password: </label>
+                <input type="password" id="password" formControlName="password" class="form-control my-2">
+                <div *ngIf="loginForm.get('password')?.errors&&loginForm.get('password')?.touched"
+                    class="alert text-black">
+                    <p *ngIf="loginForm.get('password')?.getError('required')">Password Is Required </p>
+                    <p *ngIf="loginForm.get('password')?.getError('pattern')">Must be at least 6 (symbols, digits, chars)</p>
+                </div>
+
+                <!--Submit button-->
+                <button type="submit" [disabled]="loginForm.invalid"
+                    class="btn bg-main text-white d-block w-50 mx-auto mt-4">Submit</button>
+                <div class="mx-auto d-block w-50 my-3 ">Forgot Your Password ? <a
+                        class="text-decoration-underline cursor-pointer" routerLink="/forgetPassword">Forget
+                        Password</a></div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <img src="assets/images/Wavy_Bus-17_Single-09.jpg" class="w-100">
+        </div>
+    </div>
+</section>

@@ -1,0 +1,16 @@
+.increase:hover {
+    background-color: #198553;
+    color: white !important;
+}
+
+.decrease:hover {
+    background-color: #dc3545;
+    color: white !important;
+}
+
+
+.payment {
+    border: 1px solid #53034d;
+}
+
+
